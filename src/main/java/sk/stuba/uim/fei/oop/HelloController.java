@@ -1,9 +1,8 @@
 package sk.stuba.uim.fei.oop;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
@@ -27,6 +26,17 @@ public class HelloController {
     @GetMapping("/param")
     public HelloResponse helloParam(@RequestParam(name = "name", defaultValue = "world") String name) {
         return new HelloResponse(this.counter++, "hello " + name);
+    }
+
+    @PostMapping("/body")
+    public HelloResponse helloBody(@RequestBody HelloRequestBody body) {
+        return new HelloResponse(this.counter++, "hello " + body.getMeno());
+    }
+
+    @PostMapping("/responseEntity")
+    public ResponseEntity<HelloResponse> helloResponse(@RequestBody HelloRequestBody body) {
+        return new ResponseEntity<>(
+                new HelloResponse(this.counter++, "hello " + body.getMeno()), HttpStatus.CREATED);
     }
 }
 
