@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class HelloController {
 
     @Autowired
-    private HelloService service;
+    private IGreetingsService service;
 
     @GetMapping("/hello")
     public String hello() {
@@ -17,18 +17,18 @@ public class HelloController {
     }
 
     @GetMapping("/helloCount")
-    public HelloResponse helloCount() {
-        return new HelloResponse(this.service.getCounter(), "hello world");
+    public String helloCount() {
+        return "hello world";
     }
 
     @GetMapping("/path/{name}")
-    public HelloResponse helloPath(@PathVariable(name = "name") String name) {
-        return new HelloResponse(this.service.getCounter(), "hello " + name);
+    public String helloPath(@PathVariable(name = "name") String name) {
+        return "hello " + name;
     }
 
     @GetMapping("/param")
-    public HelloResponse helloParam(@RequestParam(name = "name", defaultValue = "world") String name) {
-        return new HelloResponse(this.service.getCounter(), "hello " + name);
+    public String helloParam(@RequestParam(name = "name", defaultValue = "world") String name) {
+        return "hello " + name;
     }
 
     @PostMapping("/body")
