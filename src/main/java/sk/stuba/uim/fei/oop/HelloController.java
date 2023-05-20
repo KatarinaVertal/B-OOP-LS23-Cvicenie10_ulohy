@@ -1,28 +1,18 @@
 package sk.stuba.uim.fei.oop;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/hello")
 public class HelloController {
 
-    @Autowired
-    private IGreetingsService service;
-
-    @GetMapping("/hello")
+    @GetMapping
     public String hello() {
         return "hello world";
     }
 
-    @GetMapping("/helloCount")
-    public String helloCount() {
-        return "hello world";
-    }
-
-    @GetMapping("/path/{name}")
-    public String helloPath(@PathVariable(name = "name") String name) {
+    @GetMapping("/{name}")
+    public String helloName(@PathVariable(name = "name") String name) {
         return "hello " + name;
     }
 
@@ -33,12 +23,7 @@ public class HelloController {
 
     @PostMapping("/body")
     public HelloResponse helloBody(@RequestBody HelloRequestBody body) {
-        return this.service.createResponse(body);
+        return new HelloResponse("Hello" + body.getName());
     }
 
-    @PostMapping("/responseEntity")
-    public ResponseEntity<HelloResponse> helloResponse(@RequestBody HelloRequestBody body) {
-        return new ResponseEntity<>(this.service.createResponse(body), HttpStatus.CREATED);
-    }
 }
-

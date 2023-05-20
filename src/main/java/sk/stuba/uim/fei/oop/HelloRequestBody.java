@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class HelloRequestBody {
-    private String meno;
+    private String name;
 }

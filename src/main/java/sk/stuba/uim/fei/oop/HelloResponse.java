@@ -6,6 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class HelloResponse {
-    private int counter;
-    private String message;
+    private String name;
 }
