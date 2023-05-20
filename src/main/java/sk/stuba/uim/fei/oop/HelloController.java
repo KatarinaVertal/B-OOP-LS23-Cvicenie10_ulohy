@@ -1,29 +1,30 @@
 package sk.stuba.uim.fei.oop;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
 
-    @GetMapping
-    public String hello() {
-        return "hello world";
-    }
+    @Autowired
+    private HelloService service;
 
     @GetMapping("/{name}")
-    public String helloName(@PathVariable(name = "name") String name) {
-        return "hello " + name;
+    public HelloResponse helloName(@PathVariable(name = "name") String name) {
+        HelloRequestBody body = new HelloRequestBody(name);
+        return this.service.createResponse(body);
     }
 
     @GetMapping("/param")
-    public String helloParam(@RequestParam(name = "name", defaultValue = "world") String name) {
-        return "hello " + name;
+    public HelloResponse helloParam(@RequestParam(name = "name", defaultValue = "world") String name) {
+        HelloRequestBody body = new HelloRequestBody(name);
+        return this.service.createResponse(body);
     }
 
     @PostMapping("/body")
     public HelloResponse helloBody(@RequestBody HelloRequestBody body) {
-        return new HelloResponse("Hello" + body.getName());
+        return this.service.createResponse(body);
     }
 
 }

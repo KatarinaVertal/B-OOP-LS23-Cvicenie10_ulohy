@@ -7,4 +7,5 @@ import lombok.Getter;
 @Getter
 public class HelloResponse {
     private String name;
+
 }
